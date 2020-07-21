@@ -528,18 +528,19 @@ public class CgController {
 		String cpidst = "-1";
 		long cpid = Long.parseLong(cpidst);
 		CgOrderDetail selectDetailBycgXqId = cgService.selectDetailBycgXqId(id);
-		selectDetailBycgXqId.setSfRk("已入库");
 		KcGoodsInfo selectgood = cgService.selectgood(selectDetailBycgXqId.getCpId());
 		BigDecimal cgsl = new BigDecimal(selectDetailBycgXqId.getCpNum());
 		BigDecimal kcsl = selectgood.getKcNum();
 		BigDecimal rk = cgsl.add(kcsl);
 		selectgood.setKcNum(rk);
 		cgService.updatagood(selectgood);
-		cgService.updatecgxq(selectDetailBycgXqId);
 		CgOrderDetail selectDetailBycgXqId2 = cgService.selectDetailBycgXqId(id);
+		CgRepGoods selectcrgbycpid = cgService.selectcrgbycpid(selectDetailBycgXqId.getCpId());
 		selectDetailBycgXqId2.setSfRk("已入库");
 		selectDetailBycgXqId2.setCpId(cpid);
 		cgService.addcod(selectDetailBycgXqId2);
+		cgService.delectcgr(selectcrgbycpid.getCgRepId());
+		cgService.delectcgxq(selectDetailBycgXqId.getCgXqId());
 		return i;
 	}
 

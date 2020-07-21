@@ -1,6 +1,7 @@
 package com.sc.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,14 +18,15 @@ public class KcWarehouseInfo implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastModifyDate;
     
-  //扩展属性,用于查询-start
+  //扩展属性 用于日期范围查询
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date datemin;
+    
+    //扩展属性 用于日期范围查询
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date datemax;
-    
 
-    
+  
 
 	@Override
 	public String toString() {

@@ -160,13 +160,13 @@ outline: none;
 				<tbody>
 					<c:forEach items="${page.list }" var="p">
 						<tr class="text-c">
-							<td id="inpid${p.cgId }" ><input type="checkbox" name="one-check"
-								value="${p.cgId }"></td>
-								<c:if test="${p.fkQk=='已付款'}">
-									<script type="text/javascript">
+							<td id="inpid${p.cgId }"><input type="checkbox"
+								name="one-check" value="${p.cgId }"></td>
+							<c:if test="${p.fkQk=='已付款'}">
+								<script type="text/javascript">
                                 $("#inpid"+${p.cgId }).html('<input disabled="disabled" type="checkbox">');
                                 </script>
-								</c:if>
+							</c:if>
 							<td>${p.cgId }</td>
 							<td><a style="text-decoration:underline;"
 								href="purctrl/selectorderanddel.do?cgid=${p.cgId }"
@@ -179,33 +179,29 @@ outline: none;
 								</c:if> <c:if test="${p.fkQk=='已付款'}">
 									<span class="label label-success radius">${p.fkQk}</span>
 								</c:if></td>
-							<td>${p.cgJz}</td>
-							<td class="td-manage">
-							<c:if test="${p.fkQk=='未付款'}">
-							<a style="text-decoration:none"
-								onClick="cksjxq(${p.cgId })" href="javascript:;" title="查看明细">
-									<i class="Hui-iconfont">&#xe616;</i>
-							</a> 
-					                <a onclick="change(${p.cgId })" title="付款" class="ml-5"
-										style="text-decoration:none;"> <i class="Hui-iconfont">&#xe6e1;</i>
-									</a>	
-								 <a title="编辑" href="javascript:;" onclick="bj(${p.cgId })"
-								class="ml-5" style="text-decoration:none;"> <i
-									class="Hui-iconfont">&#xe6df;</i>
-							</a> <a title="删除" href="javascript:;"
-								onclick="return sc(${p.cgId })" class="ml-5"
-								style="text-decoration:none;"> <i class="Hui-iconfont">&#xe6e2;</i>
-							</a>
-							</c:if>
-							<c:if test="${p.fkQk=='已付款'}">
-							<a style="text-decoration:none"
-								onClick="cksjxq(${p.cgId })" href="javascript:;" title="查看明细">
-									<i class="Hui-iconfont">&#xe616;</i>
-							</a> 
-							</c:if>
-							
-							
+							<td>
+									<span class="label label-danger radius">${p.cgJz}</span>
 							</td>
+							<td class="td-manage"><c:if test="${p.fkQk=='未付款'}">
+									<a style="text-decoration:none" onClick="cksjxq(${p.cgId })"
+										href="javascript:;" title="查看明细"> <i class="Hui-iconfont">&#xe616;</i>
+									</a>
+									<a onclick="change(${p.cgId })" title="付款" class="ml-5"
+										style="text-decoration:none;"> <i class="Hui-iconfont">&#xe6e1;</i>
+									</a>
+									<a title="编辑" href="javascript:;" onclick="bj(${p.cgId })"
+										class="ml-5" style="text-decoration:none;"> <i
+										class="Hui-iconfont">&#xe6df;</i>
+									</a>
+									<a title="删除" href="javascript:;"
+										onclick="return sc(${p.cgId })" class="ml-5"
+										style="text-decoration:none;"> <i class="Hui-iconfont">&#xe6e2;</i>
+									</a>
+								</c:if> <c:if test="${p.fkQk=='已付款'}">
+									<a style="text-decoration:none" onClick="cksjxq(${p.cgId })"
+										href="javascript:;" title="查看明细"> <i class="Hui-iconfont">&#xe616;</i>
+									</a>
+								</c:if></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -224,9 +220,8 @@ outline: none;
 						</tr>
 						<tr>
 							<td>采购进展</td>
-							<td>
-							<input readonly="readonly" type="text" id="n" name="cgJz">
-							</td>
+							<td><input readonly="readonly" type="text" id="n"
+								name="cgJz"></td>
 							<td>供应商</td>
 							<td><select id="gyss" name="gysId" class="selectbyzy">
 							</select></td>
@@ -286,8 +281,8 @@ outline: none;
 							</tr>
 							<tr>
 								<td>采购进展</td>
-								<td>
-								<input type="text" readonly="readonly" id="n" name="cgJz" value="正在采购"></td>
+								<td><input type="text" readonly="readonly" id="n"
+									name="cgJz" value="正在采购"></td>
 								<td>供应商</td>
 								<td><select id="gysss" name="gysId" class="selectbyzy">
 								</select></td>
@@ -340,11 +335,10 @@ outline: none;
 						<table>
 							<tr>
 								<td>产品名称</td>
-								<td><input type="text" id="cpNamejc" onblur="jc()" name="cpName">
-								<span style="color: red;" id="span"></span>
-								<span style="color:green;" id="span1"></span>
-								</td>
-                               
+								<td><input type="text" id="cpNamejc" onblur="jc()"
+									name="cpName"> <span style="color: red;" id="span"></span>
+									<span style="color:green;" id="span1"></span></td>
+
 							</tr>
 							<tr>
 								<td>产品单价</td>
@@ -410,7 +404,8 @@ outline: none;
 							</tr>
 							<tr>
 								<td>采购进展</td>
-								<td><input readonly="readonly" type="text" id="n" value="正在采购" name="cgJz"></td>
+								<td><input readonly="readonly" type="text" id="n"
+									value="正在采购" name="cgJz"></td>
 								<td>供应商</td>
 								<td><select id="gyssss" name="gysId" class="selectbyzy">
 								</select></td>
@@ -531,401 +526,406 @@ outline: none;
 		</div>
 	</div>
 	<script type="text/javascript">
-			/* 搜索 */
-			function sousuo() {
-				var sousuo = document.getElementById("sousuo").value;
-				var time1 = document.getElementById("time1").value;
-				var time2 = document.getElementById("time2").value;
-				if (time1 != "" & time2 != "") {
-					if (time2 < time1) {
-						alert("不符合时间搜索逻辑,请重新选择(后面的时间应比前面大)");
-						return false;
-					}
-				}
-				if (time1 != "" & time2 != "" & time2 == time1) {
-					alert("不符合时间搜索逻辑,请重新选择(选择的时间不能相同)");
+		/* 搜索 */
+		function sousuo() {
+			var sousuo = document.getElementById("sousuo").value;
+			var time1 = document.getElementById("time1").value;
+			var time2 = document.getElementById("time2").value;
+			if (time1 != "" & time2 != "") {
+				if (time2 < time1) {
+					alert("不符合时间搜索逻辑,请重新选择(后面的时间应比前面大)");
 					return false;
 				}
-				location.href = "purctrl/purlist.do?title=" + sousuo + "&time1=" + time1 + "&time2=" + time2;
 			}
-			/* 批量删除 */
-			var nodeAll = document.getElementById("all-check");
-			nodeAll.onclick = function() {
-				//name可以重复id只能有一个
-				var nodes = document.getElementsByName("one-check");
-				var flag = nodeAll.checked;
-				for (var i = 0; i < nodes.length; i++) {
-					nodes[i].checked = flag;
-				}
+			if (time1 != "" & time2 != "" & time2 == time1) {
+				alert("不符合时间搜索逻辑,请重新选择(选择的时间不能相同)");
+				return false;
 			}
-			function plsc() {
-				var id = "";
-				var temp = "";
-				var onecheck = document.getElementsByName("one-check");
-				for (var i = 0; i < onecheck.length; i++) {
-					if (onecheck[i].checked == true) {
-						id += "id=" + onecheck[i].value + "&";
-						temp = 1;
-					}
-				}
-				if (temp != 1) {
-					alert("您未勾选");
-					return false;
-				}
-				if (temp == 1) {
-					if (confirm("确认删除吗") == true) {
-						location.href = "<%=basePath%>purctrl/deletepur.do?" + id;
-						return true;
-					} else {
-						return false;
-					}
+			location.href = "purctrl/purlist.do?title=" + sousuo + "&time1=" + time1 + "&time2=" + time2;
+		}
+		/* 批量删除 */
+		var nodeAll = document.getElementById("all-check");
+		nodeAll.onclick = function() {
+			//name可以重复id只能有一个
+			var nodes = document.getElementsByName("one-check");
+			var flag = nodeAll.checked;
+			for (var i = 0; i < nodes.length; i++) {
+				nodes[i].checked = flag;
+			}
+		}
+		function plsc() {
+			var id = "";
+			var temp = "";
+			var onecheck = document.getElementsByName("one-check");
+			for (var i = 0; i < onecheck.length; i++) {
+				if (onecheck[i].checked == true) {
+					id += "id=" + onecheck[i].value + "&";
+					temp = 1;
 				}
 			}
-			/* 单个删除 */
-			function sc(uid) {
+			if (temp != 1) {
+				alert("您未勾选");
+				return false;
+			}
+			if (temp == 1) {
 				if (confirm("确认删除吗") == true) {
-					location.href = "<%=basePath%>purctrl/deletepur.do?id=" + uid;
+					location.href = "<%=basePath%>purctrl/deletepur.do?" + id;
 					return true;
+				} else {
+					return false;
 				}
 			}
-			/*采购明细*/
-			function cksjxq(id) {
-				$.ajax({
-					type : "post",
-					url : "<%=basePath%>purctrl/selectpurone.do?id=" + id,
-					dataType : "json",
-					success : function(data) //从前台回调回来的数组，处理后的数据
-					{
-						$("#a").html("供应商：" + data.gysmc);
-						$("#b").html("贷款金额：" + data.dkJe);
-						$("#c").html("发票号码：" + data.fpNumber);
-						$("#d").html("付款情况：" + data.fkQk);
-		
-						/* 得先把ajak返回的json时间格式转为普通时间格式 */
-						var date = new Date(data.cgDate);
-						var Y = date.getFullYear() + '-';
-						var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-						var D = date.getDate() + ' ';
-						var H = date.getHours() + ':';
-						var F = date.getMinutes() + ':';
-						var S = date.getSeconds();
-		
-						$("#e").html("交货时间：" + Y + M + D + H + F + S);
-						$("#f").html("交货地点：" + data.jhAddress);
-						$("#g").html("交货方式：" + data.jhFs);
-						$("#h").html("操作人员：" + data.czrmc);
-						$("#i").html("备注信息：" + data.bzXx);
-						$("#j").html("公司：" + data.gsmc);
-		
-						/* 得先把ajak返回的json时间格式转为普通时间格式 */
-						var date = new Date(data.lastTime);
-						var Y = date.getFullYear() + '-';
-						var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-						var D = date.getDate() + ' ';
-						var H = date.getHours() + ':';
-						var F = date.getMinutes() + ':';
-						var S = date.getSeconds();
-						$("#k").html("最后修改时间：" + Y + M + D + H + F + S);
-					}
-				});
-				layer.open({
-					type : 1,
-					area : [ '700px', '500px' ],
-					fix : false, //不固定
-					maxmin : true,
-					shade : 0.4,
-					title : '明细',
-					content : $('#window-div')
-				});
+		}
+		/* 单个删除 */
+		function sc(uid) {
+			if (confirm("确认删除吗") == true) {
+				location.href = "<%=basePath%>purctrl/deletepur.do?id=" + uid;
+				return true;
 			}
-			/* 编辑 */
-			function bj(id) {
-			temp=0;
-				$.ajax({
-					type : "post",
-					url : "<%=basePath%>purctrl/selectpurone.do?id=" + id,
-					dataType : "json",
-					success : function(data) //从前台回调回来的数组，处理后的数据
-					{
-						$("#z").val(data.cgId);
-						/* $("#o").val(data.gysId); */
-						var opg = "";
-						opg = "<option>请选择</option>";
-						$.each(data.cgSupMsg, function(i, comp) {
-							opg += "<option value='" + comp.gysId + "'" + (comp.gysId == data.gysId ? 'selected' : '') + ">" + comp.gysName + "</option>"
-						});
-						$("#gyss").html(opg);
-						$("#l").val(data.cgTitle);
-						$("#n").val(data.cgJz);
-						$("#p").val(data.dkJe);
-						$("#q").val(data.fpNumber);
-						$("#r").val(data.fkQk);
-		
-						/* 得先把ajak返回的json时间格式转为普通时间格式 */
-						var date = new Date(data.cgDate);
-						var Y = date.getFullYear() + '-';
-						var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-						var D = date.getDate() + ' ';
-						var H = date.getHours() + ':';
-						var F = date.getMinutes() + ':';
-						var S = date.getSeconds();
-		
-						$("#m").val(Y + M + D + H + F + S);
-		
-						/* 得先把ajak返回的json时间格式转为普通时间格式 */
-						var date = new Date(data.jhDate);
-						var Y = date.getFullYear() + '-';
-						var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-						var D = date.getDate() + ' ';
-						var H = date.getHours() + ':';
-						var F = date.getMinutes() + ':';
-						var S = date.getSeconds();
-		
-						$("#s").val(Y + M + D + H + F + S);
-						$("#t").val(data.jhAddress);
-						$("#u").val(data.jhFs);
-						$("#v").val(data.czrmc);
-						$("#y").html(data.bzXx);
-						/* $("#w").val(data.companyId); */
-						var op = "";
-						op = "<option>请选择</option>";
-						$.each(data.xtCompanyInfo, function(i, comp) {
-							op += "<option value='" + comp.companyId + "'" + (comp.companyId == data.companyId ? 'selected' : '') + ">" + comp.companyName + "</option>"
-						});
-						$("#comp").html(op);
-					}
-				});
-		
-				var index = layer.open({
-					type : 1,
-					area : [ '600px', '530px' ],
-					btn : [ '提交', '取消' ],
-					fix : false, //不固定
-					maxmin : true,
-					shade : 0.4,
-					title : '编辑',
-					content : $('#window-from'),
-					yes : function() {
-					temp=1;
-						/* 输出序列后的值，name一定要和bean的一样 */
-						/* alert($('#from').serialize()); */
-						$.ajax({
-							type : "post", //请求方式
-							url : "purctrl/update.do", //url地址
-							data : $('#from').serialize(), //序列化表单的参数
-							dataType : "json" //响应类型
-						});
-						//提交完成后关闭弹层
-						layer.close(index);
-						if (temp == 1) {
+		}
+		/*采购明细*/
+		function cksjxq(id) {
+			$.ajax({
+				type : "post",
+				url : "<%=basePath%>purctrl/selectpurone.do?id=" + id,
+				dataType : "json",
+				success : function(data) //从前台回调回来的数组，处理后的数据
+				{
+					$("#a").html("供应商：" + data.gysmc);
+					$("#b").html("贷款金额：" + data.dkJe);
+					$("#c").html("发票号码：" + data.fpNumber);
+					$("#d").html("付款情况：" + data.fkQk);
+	
+					/* 得先把ajak返回的json时间格式转为普通时间格式 */
+					var date = new Date(data.cgDate);
+					var Y = date.getFullYear() + '-';
+					var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+					var D = date.getDate() + ' ';
+					var H = date.getHours() + ':';
+					var F = date.getMinutes() + ':';
+					var S = date.getSeconds();
+	
+					$("#e").html("交货时间：" + Y + M + D + H + F + S);
+					$("#f").html("交货地点：" + data.jhAddress);
+					$("#g").html("交货方式：" + data.jhFs);
+					$("#h").html("操作人员：" + data.czrmc);
+					$("#i").html("备注信息：" + data.bzXx);
+					$("#j").html("公司：" + data.gsmc);
+	
+					/* 得先把ajak返回的json时间格式转为普通时间格式 */
+					var date = new Date(data.lastTime);
+					var Y = date.getFullYear() + '-';
+					var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+					var D = date.getDate() + ' ';
+					var H = date.getHours() + ':';
+					var F = date.getMinutes() + ':';
+					var S = date.getSeconds();
+					$("#k").html("最后修改时间：" + Y + M + D + H + F + S);
+				}
+			});
+			layer.open({
+				type : 1,
+				area : [ '700px', '500px' ],
+				fix : false, //不固定
+				maxmin : true,
+				shade : 0.4,
+				title : '明细',
+				content : $('#window-div')
+			});
+		}
+		/* 编辑 */
+		function bj(id) {
+			temp = 0;
+			$.ajax({
+				type : "post",
+				url : "<%=basePath%>purctrl/selectpurone.do?id=" + id,
+				dataType : "json",
+				success : function(data) //从前台回调回来的数组，处理后的数据
+				{
+					$("#z").val(data.cgId);
+					/* $("#o").val(data.gysId); */
+					var opg = "";
+					opg = "<option>请选择</option>";
+					$.each(data.cgSupMsg, function(i, comp) {
+						opg += "<option value='" + comp.gysId + "'" + (comp.gysId == data.gysId ? 'selected' : '') + ">" + comp.gysName + "</option>"
+					});
+					$("#gyss").html(opg);
+					$("#l").val(data.cgTitle);
+					$("#n").val(data.cgJz);
+					$("#p").val(data.dkJe);
+					$("#q").val(data.fpNumber);
+					$("#r").val(data.fkQk);
+	
+					/* 得先把ajak返回的json时间格式转为普通时间格式 */
+					var date = new Date(data.cgDate);
+					var Y = date.getFullYear() + '-';
+					var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+					var D = date.getDate() + ' ';
+					var H = date.getHours() + ':';
+					var F = date.getMinutes() + ':';
+					var S = date.getSeconds();
+	
+					$("#m").val(Y + M + D + H + F + S);
+	
+					/* 得先把ajak返回的json时间格式转为普通时间格式 */
+					var date = new Date(data.jhDate);
+					var Y = date.getFullYear() + '-';
+					var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+					var D = date.getDate() + ' ';
+					var H = date.getHours() + ':';
+					var F = date.getMinutes() + ':';
+					var S = date.getSeconds();
+	
+					$("#s").val(Y + M + D + H + F + S);
+					$("#t").val(data.jhAddress);
+					$("#u").val(data.jhFs);
+					$("#v").val(data.czrmc);
+					$("#y").html(data.bzXx);
+					/* $("#w").val(data.companyId); */
+					var op = "";
+					op = "<option>请选择</option>";
+					$.each(data.xtCompanyInfo, function(i, comp) {
+						op += "<option value='" + comp.companyId + "'" + (comp.companyId == data.companyId ? 'selected' : '') + ">" + comp.companyName + "</option>"
+					});
+					$("#comp").html(op);
+				}
+			});
+	
+			var index = layer.open({
+				type : 1,
+				area : [ '600px', '530px' ],
+				btn : [ '提交', '取消' ],
+				fix : false, //不固定
+				maxmin : true,
+				shade : 0.4,
+				title : '编辑',
+				content : $('#window-from'),
+				yes : function() {
+					temp = 1;
+					/* 输出序列后的值，name一定要和bean的一样 */
+					/* alert($('#from').serialize()); */
+					$.ajax({
+						type : "post", //请求方式
+						url : "purctrl/update.do", //url地址
+						data : $('#from').serialize(), //序列化表单的参数
+						dataType : "json" //响应类型
+					});
+					//提交完成后关闭弹层
+					layer.close(index);
+					if (temp == 1) {
 						layer.msg("修改成功", {
 							icon : 6,
 							time : 2000
 						});
 					}
-					},
-					//end是关闭窗口时自动执行
-					end : function() {
-						/* alert("关闭后刷新页面"); */
-						setTimeout(function() {
+				},
+				//end是关闭窗口时自动执行
+				end : function() {
+					/* alert("关闭后刷新页面"); */
+					if (temp == 1) {
+					setTimeout(function() {
 						location.replace(location.href);
 					}, 1000)
 					}
-				});
-			//弹层全屏
-			//layer.full(index);
-			}
-
-			/* 新货添加 */
-			var index = "";
-			var temp1=0;
-			function add() {
+				}
+			});
+		//弹层全屏
+		//layer.full(index);
+		}
+	
+		/* 新货添加 */
+		var index = "";
+		var temp1 = 0;
+		function add() {
 			$.ajax({
-					type : "post",
-					url : "<%=basePath%>purctrl/selectsupandcomp.do",
-					dataType : "json",
-					success : function(data) //从前台回调回来的数组，处理后的数据
-					{
-						var opg = "";
-						opg = "<option>请选择</option>";
-						$.each(data.sup, function(i, sup) {
-							opg += "<option value='" + sup.gysId + "'>" + sup.gysName + "</option>"
-						});
-						$("#gysss").html(opg);
-						var op = "";
-						op = "<option>请选择</option>";
-						$.each(data.comp, function(i, comp) {
-							op += "<option value='" + comp.companyId + "'>" + comp.companyName + "</option>"
-						});
-						$("#compsss").html(op);
-					}
-				});
-				index = layer.open({
-					type : 1,
-					area : [ '630px', '530px' ],
-					fix : false, //不固定
-					maxmin : true,
-					shade : 0.4,
-					title : '新货添加',
-					content : $('#window-from1'),
-					//end是关闭窗口时自动执行
-					end : function() {
-						setTimeout(function() {
-						location.replace(location.href);
-					}, 1000)
-						
-					}
-				});
-			}
-			function tj() {
-			temp1=1;
-				/* 输出序列后的值，name一定要和bean的一样 */
-				$.ajax({
-					type : "post", //请求方式
-					url : "purctrl/addnew.do", //url地址
-					data : $('#myfrom1').serialize(), //序列化表单的参数
-					dataType : "json" //响应类型
-				});
-				//提交完成后关闭弹层
-				layer.close(index);
-				if (temp1 == 1) {
-						layer.msg("添加成功", {
-							icon : 6,
-							time : 2000
-						});
-					}
-			}
-			
-			
-			/* 补货添加 */
-			function add1() {
-			var temp=0;
-				$.ajax({
-					type : "post",
-					url : "<%=basePath%>purctrl/selectsupandcomp.do",
-					dataType : "json",
-					success : function(data) //从前台回调回来的数组，处理后的数据
-					{
-					
+				type : "post",
+				url : "<%=basePath%>purctrl/selectsupandcomp.do",
+				dataType : "json",
+				success : function(data) //从前台回调回来的数组，处理后的数据
+				{
 					var opg = "";
-						opg = "<option>请选择</option>";
-						$.each(data.sup, function(i, sup) {
-							opg += "<option value='" + sup.gysId + "'>" + sup.gysName + "</option>"
-						});
-						$("#gyssss").html(opg);
-						var op = "";
-						op = "<option>请选择</option>";
-						$.each(data.comp, function(i, comp) {
-							op += "<option value='" + comp.companyId + "'>" + comp.companyName + "</option>"
-						});
-						$("#compssss").html(op);
-					
-						var h = "";
-						$.each(data.crp, function(i, xbh) {
-							if (xbh.cgOrderDetail.cgId == 0) {
-								h += "<option value='" + xbh.cpId + "'>" + xbh.kcGoodsInfo.productName + "</option>"
-							}
-						});
-						$("#searchs").html(h);
+					opg = "<option>请选择</option>";
+					$.each(data.sup, function(i, sup) {
+						opg += "<option value='" + sup.gysId + "'>" + sup.gysName + "</option>"
+					});
+					$("#gysss").html(opg);
+					var op = "";
+					op = "<option>请选择</option>";
+					$.each(data.comp, function(i, comp) {
+						op += "<option value='" + comp.companyId + "'>" + comp.companyName + "</option>"
+					});
+					$("#compsss").html(op);
+				}
+			});
+			index = layer.open({
+				type : 1,
+				area : [ '630px', '530px' ],
+				fix : false, //不固定
+				maxmin : true,
+				shade : 0.4,
+				title : '新货添加',
+				content : $('#window-from1'),
+				//end是关闭窗口时自动执行
+				end : function() {
+				   if (temp1 == 1) {
+					setTimeout(function() {
+						location.replace(location.href);
+					}, 1000)
 					}
+	
+				}
+			});
+		}
+		function tj() {
+			temp1 = 1;
+			/* 输出序列后的值，name一定要和bean的一样 */
+			$.ajax({
+				type : "post", //请求方式
+				url : "purctrl/addnew.do", //url地址
+				data : $('#myfrom1').serialize(), //序列化表单的参数
+				dataType : "json" //响应类型
+			});
+			//提交完成后关闭弹层
+			layer.close(index);
+			if (temp1 == 1) {
+				layer.msg("添加成功", {
+					icon : 6,
+					time : 2000
 				});
-				index = layer.open({
-					type : 1,
-					area : [ '630px', '560px' ],
-					fix : false, //不固定
-					btn : [ '提交', '取消' ],
-					maxmin : true,
-					shade : 0.4,
-					title : '添加',
-					content : $('#window-from2'),
-					//end是关闭窗口时自动执行
-					yes : function() {
-					  temp=1;
-						var id = "";
-						$(".actives").each(function(i, e) {
-							id += "id=" + $(this).attr("data-value") + "&";
-						});
-						$.ajax({
-							type : "post", //请求方式
-							url : "purctrl/add.do?" + id, //url地址
-							data : $('#myfrom2').serialize(), //序列化表单的参数
-							dataType : "json" //响应类型
-						});
-						//提交完成后关闭弹层
-						layer.close(index);
-						if (temp == 1) {
+			}
+		}
+	
+	
+		/* 补货添加 */
+		function add1() {
+			var temp = 0;
+			$.ajax({
+				type : "post",
+				url : "<%=basePath%>purctrl/selectsupandcomp.do",
+				dataType : "json",
+				success : function(data) //从前台回调回来的数组，处理后的数据
+				{
+	
+					var opg = "";
+					opg = "<option>请选择</option>";
+					$.each(data.sup, function(i, sup) {
+						opg += "<option value='" + sup.gysId + "'>" + sup.gysName + "</option>"
+					});
+					$("#gyssss").html(opg);
+					var op = "";
+					op = "<option>请选择</option>";
+					$.each(data.comp, function(i, comp) {
+						op += "<option value='" + comp.companyId + "'>" + comp.companyName + "</option>"
+					});
+					$("#compssss").html(op);
+	
+					var h = "";
+					$.each(data.crp, function(i, xbh) {
+						if (xbh.cgOrderDetail.cgId == 0) {
+							h += "<option value='" + xbh.cpId + "'>" + xbh.kcGoodsInfo.productName + "</option>"
+						}
+					});
+					$("#searchs").html(h);
+				}
+			});
+			index = layer.open({
+				type : 1,
+				area : [ '630px', '560px' ],
+				fix : false, //不固定
+				btn : [ '提交', '取消' ],
+				maxmin : true,
+				shade : 0.4,
+				title : '添加',
+				content : $('#window-from2'),
+				//end是关闭窗口时自动执行
+				yes : function() {
+					temp = 1;
+					var id = "";
+					$(".actives").each(function(i, e) {
+						id += "id=" + $(this).attr("data-value") + "&";
+					});
+					$.ajax({
+						type : "post", //请求方式
+						url : "purctrl/add.do?" + id, //url地址
+						data : $('#myfrom2').serialize(), //序列化表单的参数
+						dataType : "json" //响应类型
+					});
+					//提交完成后关闭弹层
+					layer.close(index);
+					if (temp == 1) {
 						layer.msg("添加成功", {
 							icon : 6,
 							time : 2000
 						});
 					}
-						
-					},
-					end : function() {
+	
+				},
+				end : function() {
+				if (temp == 1) {
+					setTimeout(function() {
+						location.replace(location.href);
+					}, 1000)
+					}
+				}
+			});
+		}
+	
+	
+		function next() {
+			document.getElementById("one").style.display = "none";
+			document.getElementById("two").style.display = "block";
+		}
+		function fh() {
+			document.getElementById("one").style.display = "block";
+			document.getElementById("two").style.display = "none";
+		}
+		function next1() {
+			document.getElementById("three").style.display = "none";
+			document.getElementById("four").style.display = "block";
+		}
+		function fh1() {
+			document.getElementById("three").style.display = "block";
+			document.getElementById("four").style.display = "none";
+		}
+	
+		function change(id) {
+			$.ajax({
+				type : "post",
+				url : "<%=basePath%>purctrl/changefkqk.do?id=" + id,
+				dataType : "json",
+				success : function(data) {
+					if (data == 1) {
+						layer.msg("操作成功", {
+							icon : 6
+						});
 						setTimeout(function() {
-						location.replace(location.href);
-					}, 1000)
+							location.replace(location.href);
+						}, 1000)
 					}
-				});
-			}
-		
-		
-			function next() {
-				document.getElementById("one").style.display = "none";
-				document.getElementById("two").style.display = "block";
-			}
-			function fh() {
-				document.getElementById("one").style.display = "block";
-				document.getElementById("two").style.display = "none";
-			}
-			function next1() {
-				document.getElementById("three").style.display = "none";
-				document.getElementById("four").style.display = "block";
-			}
-			function fh1() {
-				document.getElementById("three").style.display = "block";
-				document.getElementById("four").style.display = "none";
-			}
-			
-			function change(id){
+				}
+			});
+		}
+	
+		function jc() {
+			var name = $("#cpNamejc").val();
 			$.ajax({
-					type : "post",
-					url : "<%=basePath%>purctrl/changefkqk.do?id="+id,
-					dataType : "json",
-					success : function(data)
-					{
-					  if(data==1){
-					  layer.msg("操作成功",{icon:6});
-					  setTimeout(function() {
-						location.replace(location.href);
-					}, 1000)
-					  }
+				type : "post",
+				url : "<%=basePath%>purctrl/jccpname.do?name=" + name,
+				dataType : "json",
+				success : function(data) {
+					if (data == 1) {
+						$("#span").html('<i class="Hui-iconfont">&#xe706;</i>仓库已有该商品');
+						$("#span1").html('');
+						$("#cpNamejc").focus();
 					}
-				});
-			}
-			
-			function jc(){
-			var name=$("#cpNamejc").val();
-			
-			$.ajax({
-					type : "post",
-					url : "<%=basePath%>purctrl/jccpname.do?name="+name,
-					dataType : "json",
-					success : function(data)
-					{
-					  if(data==1){
-					  $("#span").html('<i class="Hui-iconfont">&#xe706;</i>仓库已有该商品');
-					   $("#span1").html('');
-					  $("#cpNamejc").focus();
-					  }
-					  if(data==0){
-					  $("#span1").html('<i class="Hui-iconfont">&#xe676;</i>');
-					  $("#span").html('');
-					  }
+					if (data == 0) {
+						$("#span1").html('<i class="Hui-iconfont">&#xe676;</i>');
+						$("#span").html('');
 					}
-				});
-			}
-		</script>
+				}
+			});
+		}
+	</script>
 </body>
 <script>
 	new verSelector();

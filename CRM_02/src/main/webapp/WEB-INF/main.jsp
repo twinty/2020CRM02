@@ -294,7 +294,7 @@
 							<li><a data-href="purctrl/purlist.do"
 								data-title="未处理采购单"> <i class="Hui-iconfont">&#xe623;</i>&nbsp采购单
 							</a></li>
-							<li><a data-href="purctrl/purusedlist.do" data-title="已处理采购单">
+							<li><a data-href="purctrl/purlistused.do" data-title="已处理采购单">
 									<i class="Hui-iconfont">&#xe623;</i>&nbsp已处理采购单
 							</a></li>
 						</ul>
@@ -343,7 +343,7 @@
 			</dl>
 			<dl id="menu-tongji">
 				<dt>
-					<i class="Hui-iconfont">&#xe61a;</i> 王文杰<i
+					<i class="Hui-iconfont">&#xe61a;</i> 人事管理<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -354,14 +354,11 @@
 							href="javascript:void(0)">仓库管理</a></li>
 						<li><a data-href="Rsctrl/selectXtSection.do" data-title="部门信息表"
 							href="javascript:void(0)">部门信息表</a></li>
-						<li><a data-href="charts-4.html" data-title="柱状图"
-							href="javascript:void(0)">柱状图</a></li>
-						<li><a data-href="charts-5.html" data-title="饼状图"
-							href="javascript:void(0)">饼状图</a></li>
-						<li><a data-href="charts-6.html" data-title="3D柱状图"
-							href="javascript:void(0)">3D柱状图</a></li>
-						<li><a data-href="charts-7.html" data-title="3D饼状图"
-							href="javascript:void(0)">3D饼状图</a></li>
+						<li><a data-href="Rsctrl/selectCompany.do" data-title="公司管理"
+							href="javascript:void(0)">公司管理</a></li>
+						<li><a data-href="Rsctrl/selectDuties.do" data-title="职务表"
+							href="javascript:void(0)">职务表</a></li>
+						
 					</ul>
 				</dd>
 			</dl>

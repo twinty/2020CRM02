@@ -35,12 +35,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <article class="page-container">
-	<form action="Rsctrl/addhouse.do" method="post" class="form form-horizontal" id="form-member-add" >
+	<form action="Rsctrl/adddepot.do" method="post" class="form form-horizontal" id="form-member-add" >
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>仓库名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 		<!-- 如果是添加，则没有id；如果是修改就有id -->
-			<input type="hidden" class="input-text" value="" placeholder="" id="warehouseId" name="warehouseId">
+			<input type="hidden" class="input-text" value=${depot.warehouseId } placeholder="" id="warehouseId" name="warehouseId">
 		    <input type="text" class="input-text"  value="${depot.warehouseName }"  placeholder="请输入仓库名称" id="warehouseName" name="warehouseName">
 		</div>
 	</div>
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	 $("#form-member-add").validate({
 		rules:{
-			depotName:{
+			warehouseName:{
 				required:true,
 			},
 		},

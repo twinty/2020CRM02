@@ -71,8 +71,8 @@
 		<div class="text-c">
 				<from action=""> 
 				<input type="text" value="${ssz}"
-				class="input-text" style="width:250px" placeholder="姓名模糊搜索"
-				id="sousuo">
+				class="input-text" style="width:250px" placeholder="部门模糊搜索"
+				id="sousuo"> 
 			<button type="button" class="btn btn-success radius"
 				onclick="return sousuo()">
 				<i class="Hui-iconfont">&#xe665;</i> 搜索
@@ -94,9 +94,9 @@
 		</c:if>
 
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
-			<span class="l"> <a href="javascript:;"
+			<!-- <span class="l"> <a href="javascript:;"
 				onclick="return plsc()" class="btn btn-danger radius"> <i
-					class="Hui-iconfont">&#xe6e2;</i> 批量删除
+					class="Hui-iconfont">&#xe6e2;</i> 批量删除 -->
 			</a> <a href="javascript:;" onclick="add()"
 				class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
 					添加部门信息
@@ -115,7 +115,7 @@
 						<th width="100">备注信息</th>
 						<th width="40">公司编号</th>
 						<th width="200">修改时间</th>
-						<th width="40">操作</th>
+						<!-- <th width="40">操作</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -212,7 +212,7 @@
 					<script type="text/javascript">
 				  function sy(){
 				  
-				  location.href="Rsctrl/selectXtSection.do?pageNum="+${p.navigateFirstPage }+
+				  location.href="Rsctrl/selectSection.do?pageNum="+${p.navigateFirstPage }+
 				      "&name="+document.getElementById("sousuo").value
 				  }
 				  </script>
@@ -221,7 +221,7 @@
 					<script type="text/javascript">
 				  function syy(){
 				 
-				  location.href="Rsctrl/selectXtSection.do?pageNum="+${p.prePage}+
+				  location.href="Rsctrl/selectSection.do?pageNum="+${p.prePage}+
 				      "&name="+document.getElementById("sousuo").value
 				  }
 				  </script>
@@ -232,7 +232,7 @@
 					<script type="text/javascript">
 				     function xyy(){
 				  		 
-				      location.href="Rsctrl/selectXtSection.do?pageNum="+${p.nextPage}+
+				      location.href="Rsctrl/selectSection.do?pageNum="+${p.nextPage}+
 				      "&name="+document.getElementById("sousuo").value
 				    }
 				   </script>
@@ -240,7 +240,7 @@
 						style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">尾页</button>
 					<script type="text/javascript">
 				     function wy(){
-				     location.href="Rsctrl/selectXtSection.do?pageNum="+${p.navigateLastPage }+
+				     location.href="Rsctrl/selectSection.do?pageNum="+${p.navigateLastPage }+
 				      "&name="+document.getElementById("sousuo").value
 				    }
 				  </script>
@@ -253,9 +253,9 @@
 
 			/* 搜索 */
 			function sousuo() {
-			alert(document.getElementById("sousuo").value)
+			/* alert(document.getElementById("sousuo").value) */
 				var sousuo = document.getElementById("sousuo").value;
-				location.href = "Rsctrl/selectSup.do?name=" + sousuo
+				location.href = "Rsctrl/selectSection.do?name=" +  sousuo
 			}
 			/* 批量删除 */
 			var nodeAll = document.getElementById("all-check");

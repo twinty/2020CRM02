@@ -3,6 +3,8 @@ package com.sc.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class XtDutiesInfo implements Serializable {
     private Long dutiesId;
 
@@ -10,11 +12,42 @@ public class XtDutiesInfo implements Serializable {
 
     private Long sectionId;
 
-    private String orderRemark;
+    public Date getDatemin() {
+		return datemin;
+	}
+
+	@Override
+	public String toString() {
+		return "XtDutiesInfo [dutiesId=" + dutiesId + ", dutiesName=" + dutiesName + ", sectionId=" + sectionId
+				+ ", orderRemark=" + orderRemark + ", companyId=" + companyId + ", lastModifyDate=" + lastModifyDate
+				+ ", datemin=" + datemin + ", datemax=" + datemax + "]";
+	}
+
+	public void setDatemin(Date datemin) {
+		this.datemin = datemin;
+	}
+
+	public Date getDatemax() {
+		return datemax;
+	}
+
+	public void setDatemax(Date datemax) {
+		this.datemax = datemax;
+	}
+
+	private String orderRemark;
 
     private Long companyId;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastModifyDate;
+    
+    
+  //扩展属性,用于查询-start
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date datemin;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date datemax;
+    
 
     private static final long serialVersionUID = 1L;
 

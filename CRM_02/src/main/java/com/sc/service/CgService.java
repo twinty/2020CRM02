@@ -79,6 +79,8 @@ public interface CgService {
 
 	// 修改需采购
 	public void updatetCgR(CgRepGoods c);
+	// 批量删除+删除需采购
+		public void delectcgr(Long cgRepId);
 
 	// 查询供应商信息
 	public PageInfo<CgSupMsg> selectSup(Integer pageNum, Integer pageSize, String name);
@@ -117,8 +119,7 @@ public interface CgService {
 	// 添加采购请求
 	public void addcgreq(CgRepGoods cgr);
 
-	// 需补货批量删除+删除
-	public void delectcgr(Long cgRepId);
+	
 
 	// 根据商品id查询商品
 	public KcGoodsInfo selectgood(Long productId);

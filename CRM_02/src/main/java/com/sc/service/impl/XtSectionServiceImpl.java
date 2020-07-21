@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sc.entity.XtSection;
+import com.sc.entity.XtSectionExample;
+import com.sc.entity.XtSectionExample.Criteria;
 import com.sc.mapper.XtSectionMapper;
 import com.sc.service.XtSectionService;
 @Service
@@ -27,6 +29,20 @@ public class XtSectionServiceImpl implements XtSectionService {
 		PageHelper.startPage(pageNum, pageSize);
 		List<XtSection> List = xtSectionMapper.selectByExample(null);
 		PageInfo<XtSection> page = new PageInfo<XtSection>(List);
+		return page;
+	}
+
+	@Override
+	public PageInfo<XtSection> selectXtSectionM(Integer pageNum, Integer pageSize, String name) {
+		PageHelper.startPage(pageNum, pageSize);
+		  XtSectionExample xtSectionExample = new XtSectionExample();
+		  com.sc.entity.XtSectionExample.Criteria createCriteria = xtSectionExample.createCriteria();
+		  if(name!=null){
+			  createCriteria.andSectionNameLike("%" + name + "%");
+		  }
+		  xtSectionExample.setOrderByClause("SECTION_ID");
+		  List<XtSection> list = xtSectionMapper.selectByExample(xtSectionExample);
+		  PageInfo<XtSection> page = new PageInfo<XtSection>(list);
 		return page;
 	}
 

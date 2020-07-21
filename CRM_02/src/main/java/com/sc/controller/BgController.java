@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,10 @@ import com.sc.entity.BgSms;
 import com.sc.entity.BgSmsDetail;
 import com.sc.entity.BgTaskDetail;
 import com.sc.entity.XtUserInfo;
+import com.sc.entity.XtUserNum;
 import com.sc.service.BgService;
+import com.sc.service.XtUserInfoService;
+import com.sc.service.XtUserNumService;
 
 @Controller
 @RequestMapping("Bgctrl")
@@ -28,6 +33,10 @@ public class BgController {
 	
 	@Autowired
 	BgService bgService;
+	@Autowired
+	XtUserInfoService xtUserInfoService;
+	//XtUserInfo xtUserInfo;//登录者员工信息
+	//XtUserNumService xtUserNumService;//登录账号密码
 	
 	
 	//**********//
@@ -135,6 +144,15 @@ public class BgController {
 		List<XtUserInfo> selectXtUserInfo = bgService.selectXtUserInfo();//在页面通过id获取员工姓名
 		List<BgAssessIndex> selectBgAssessIndex = bgService.selectBgAssessIndex();//通过id查询考核名称
 		System.out.println(pageInfo);
+		
+		//获取登录用户的id
+		Subject subject = SecurityUtils.getSubject();// 获取主体
+		XtUserNum nowuser = (XtUserNum) subject.getPrincipal();// 获取当前用户对象
+		System.out.println("---登录用户的id："+nowuser.getStaffId());
+		XtUserInfo userInof = xtUserInfoService.getXtUserInof(nowuser.getStaffId());
+		System.out.println("---获取的登录员工信息："+userInof);
+		
+		mav.addObject("dluser", userInof);
 		mav.addObject("user", selectXtUserInfo);
 		mav.addObject("selectBgAssessIndex", selectBgAssessIndex);
 		mav.addObject("p", pageInfo);
@@ -164,8 +182,8 @@ public class BgController {
 	
 	
 	//终极添加
-	@RequestMapping("addtBgAssessTask.do")
-	public void addtBgAssessTask(ModelAndView mav,BgAssessTask bgAssessTask,BgTaskDetail bgTaskDetail,Long[] id) {
+	@RequestMapping("addBgAssessTask.do")
+	public void addBgAssessTask(ModelAndView mav,BgAssessTask bgAssessTask,BgTaskDetail bgTaskDetail,Long[] id) {
 		System.out.println("---addtBgAssessTask添加方法");
 		System.out.println("--------------------------------独门标记");		
 		//添加,考核任务，考核任务详情
@@ -203,7 +221,7 @@ public class BgController {
 	@RequestMapping("QueryComplete.do")
 	public ModelAndView QueryComplete(ModelAndView mav,
 			@RequestParam(defaultValue="1") Integer pageNum,
-			@RequestParam(defaultValue="") Integer pageSize,
+			@RequestParam(defaultValue="100") Integer pageSize,
 			BgAssessTask bgAssessTask,String sousuo){
 		System.out.println("---进入QueryComplete查询控制器");
 		System.out.println("---分页查看未完成任务");
@@ -212,7 +230,16 @@ public class BgController {
 		List<XtUserInfo> selectXtUserInfo = bgService.selectXtUserInfo();//在页面通过id获取员工姓名
 		List<BgAssessIndex> selectBgAssessIndex = bgService.selectBgAssessIndex();//通过id查询考核名称
 		System.out.println(pageInfo);
-		mav.addObject("user", selectXtUserInfo);
+		
+		//获取登录用户的id
+		Subject subject = SecurityUtils.getSubject();// 获取主体
+		XtUserNum nowuser = (XtUserNum) subject.getPrincipal();// 获取当前用户对象
+		System.out.println("---登录用户的id："+nowuser.getStaffId());
+		XtUserInfo userInof = xtUserInfoService.getXtUserInof(nowuser.getStaffId());
+		System.out.println("---获取的登录员工信息："+userInof);
+		
+		
+		mav.addObject("user", userInof);
 		mav.addObject("selectBgAssessIndex", selectBgAssessIndex);
 		mav.addObject("p", pageInfo);
 		mav.setViewName("BG/QueryComplete");
@@ -221,7 +248,10 @@ public class BgController {
 	
 	//分页查询，查看未读任务
 	@RequestMapping("Querystate.do")
-	public ModelAndView Querystate(ModelAndView mav,@RequestParam(defaultValue="1") Integer pageNum,@RequestParam(defaultValue="5") Integer pageSize,BgAssessTask bgAssessTask,String sousuo){
+	public ModelAndView Querystate(ModelAndView mav,
+			@RequestParam(defaultValue="1") Integer pageNum,
+			@RequestParam(defaultValue="100") Integer pageSize,
+			BgAssessTask bgAssessTask,String sousuo){
 		System.out.println("---进入Querystate查询控制器");
 		System.out.println("---分页查看未读任务");
 		System.out.println("---获取搜索框的值:"+sousuo);
@@ -229,7 +259,15 @@ public class BgController {
 		List<XtUserInfo> selectXtUserInfo = bgService.selectXtUserInfo();//在页面通过id获取员工姓名
 		List<BgAssessIndex> selectBgAssessIndex = bgService.selectBgAssessIndex();//通过id查询考核名称
 		System.out.println(pageInfo);
-		mav.addObject("user", selectXtUserInfo);
+		
+		//获取登录用户的id
+		Subject subject = SecurityUtils.getSubject();// 获取主体
+		XtUserNum nowuser = (XtUserNum) subject.getPrincipal();// 获取当前用户对象
+		System.out.println("---登录用户的id："+nowuser.getStaffId());
+		XtUserInfo userInof = xtUserInfoService.getXtUserInof(nowuser.getStaffId());
+		System.out.println("---获取的登录员工信息："+userInof);
+		
+		mav.addObject("user", userInof);
 		mav.addObject("selectBgAssessIndex", selectBgAssessIndex);
 		mav.addObject("p", pageInfo);
 		mav.setViewName("BG/Querystate");
@@ -298,12 +336,17 @@ public class BgController {
 				option += "<option value='" + xtUserInfo.getWorkerId() + "'>" + xtUserInfo.getWorkerName() + "</option>";
 			}
 		}
-		System.out.println("---每页条数"+pageInfo.getPageSize());
-		pageInfo.setPageSize(5);
-		System.out.println("---每页条数"+pageInfo.getPageSize());
 		
+		//获取登录用户的id
+		Subject subject = SecurityUtils.getSubject();// 获取主体
+		XtUserNum nowuser = (XtUserNum) subject.getPrincipal();// 获取当前用户对象
+		System.out.println("---登录用户的id："+nowuser.getStaffId());
+		XtUserInfo userInof = xtUserInfoService.getXtUserInof(nowuser.getStaffId());
+		System.out.println("---获取的登录员工信息："+userInof);
+		
+		mav.addObject("selectuser", selectXtUserInfo);
 		mav.addObject("option", option);
-		mav.addObject("user", selectXtUserInfo);
+		mav.addObject("user", userInof);
 		mav.addObject("p", pageInfo);
 		mav.setViewName("BG/SendSMS");
 		return mav;
@@ -370,6 +413,7 @@ public class BgController {
 	
 	@RequestMapping("cs.do")
 	public ModelAndView cs(ModelAndView mav){
+		
 		System.out.println("@@@@####$$$");
 		mav.setViewName("BG/schedule");
 		return mav;

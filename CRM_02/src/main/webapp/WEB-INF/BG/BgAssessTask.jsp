@@ -99,7 +99,7 @@ outline: none;
 			<a href="javascript:;" onclick="add()" class="btn btn-primary radius">
 			<i class="Hui-iconfont">&#xe600;</i> 添加新的任务</a></span>
 			
-			<span class="r">共有数据：<strong>${p.total}</strong> 条</span>
+			<%-- <span class="r">共有数据：<strong>${p.total}</strong> 条</span> --%>
 		</div>
 				
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -122,6 +122,7 @@ outline: none;
 			
 			<tbody>
 				<c:forEach items="${p.list }" var="p">
+				<c:if test="${p.taskPromulgator==dluser.workerName }">
 					<tr class="text-c">
 						<td><input type="checkbox" name="one-check" value="${p.taskId }"></td>
 						<%-- <td>${p.taskId }</td> --%>
@@ -156,6 +157,7 @@ outline: none;
 							<a title="删除" onclick="return sc(${p.taskId })"><i class="Hui-iconfont">&#xe6e2;</i></a>
 						</td>
 					</tr>
+					</c:if>
 				</c:forEach>
 			</tbody>
 			
@@ -200,7 +202,7 @@ outline: none;
 		</div>
 	</div>
 	<div id="window-from1" class="none">
-		<form style="margin-left: 20px;" id="from" method="post">
+		<form style="margin-left: 20px;" id="from1" method="post">
 			<table>
 				<br>
 				<tr>
@@ -228,16 +230,17 @@ outline: none;
 					<td><input type="hidden" id="taskId" name="taskId">
 						<input type="hidden" id="state" name="state" value="0"><!-- 默认是未读 -->
 						<input type="hidden" id="whetherComplete" name="whetherComplete" value="0"><!-- 默认未完成 -->
+						<input type="hidden" id="taskPromulgator" name="taskPromulgator" value="${dluser.workerName }">
 					</td>
 				</tr>
 				<tr>
-					<td>发布人:</td>
-					<td><input type="text" id="taskPromulgator" name="taskPromulgator"></td>
+					<td>任务标题:</td>
+					<td><input type="text" id="taskTitle" name="taskTitle"></td>
 				</tr>
 				<tr>
 					<td>考核指标:</td>
 					<td style="width: 539px;height: 51px">
-					<select id="assessIndex" name="assessIndex" style="width: 150px;height: 37.32px;border-radius: 5px;"></select></td>
+					<select id="khzb" name="assessIndex" style="width: 150px;height: 37.32px;border-radius: 5px;"></select></td>
 				</tr>
 				<tr>
 					<td>接受者:</td>
@@ -260,10 +263,7 @@ outline: none;
 					onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 					</td>
 				</tr>
-				<tr>
-					<td>任务标题:</td>
-					<td><input type="text" id="taskTitle" name="taskTitle"></td>
-				</tr>
+				
 				<tr>
 					<td>任务具体内容:</td> 
 					<td><textarea style="float: left;" rows="5" cols="70" 
@@ -345,7 +345,7 @@ outline: none;
 					$.each(data.selectBgAssessIndex, function(i, selectBgAssessIndex) {
 						opg += "<option value='" + selectBgAssessIndex.indexId + "'>" + selectBgAssessIndex.assessIndex + "</option>"
 					});
-					$("#assessIndex").html(opg);
+					$("#khzb").html(opg);
 					var op = "";
 					$.each(data.selectXtUserInfo, function(i, selectXtUserInfo) {
 						
@@ -411,7 +411,7 @@ outline: none;
 				/* 输出序列后的值，name一定要和bean的一样 */
 				$.ajax({
 					type : "post", //请求方式
-					url : "Bgctrl/addtBgAssessTask.do?"+ id, //url地址
+					url : "Bgctrl/addBgAssessTask.do?"+ id, //url地址
 					data : $('#from').serialize(), //序列化表单的参数
 					dataType : "json", //响应类型
 					

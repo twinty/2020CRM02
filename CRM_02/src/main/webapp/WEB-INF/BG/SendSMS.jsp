@@ -76,7 +76,7 @@ outline: none;
 
 	<nav class="breadcrumb">
 		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
-		 任务发布管理 <a
+		 发布查看短消息 <a
 			class="btn btn-success radius r"
 			style="line-height:1.6em;margin-top:3px"
 			href="javascript:location.replace(location.href);" title="刷新"><i
@@ -91,17 +91,17 @@ outline: none;
 						<input type="hidden" id="informationState" name="informationState" value="0"><!-- 默认是未读 -->
 					</tr>
 					<tr>
-						<td><input type="text" id="smsSender" name="smsSender" placeholder="发布人"></td>
+						<td><input type="text" id="smsTitle" name="smsTitle" placeholder="标题"></td>
+						<td><input type="hidden" id="smsSender" name="smsSender" placeholder="发布人" value="${user.workerName }"></td>
 						<td style="width: 539px;height: 46px">接收人：
 							<select style="width: 150px;height: 37.32px;border-radius: 5px;" id="receiverId" name="xianbuyong" data-selector data-selector-checks="true">${option }</select>
 						</td>
-						
 					</tr>
 					<tr>
-						<td><input type="text" id="smsTitle" name="smsTitle" placeholder="标题"></td>
+						
 					
 						<td><textarea rows="4" cols="45" 
-							id="smsContent" name="smsContent" placeholder="任务具体内容"></textarea></td>
+							id="smsContent" name="smsContent" placeholder="短消息具体内容"></textarea></td>
 						<td><button type="button" class="btn btn-success radius"
 							onclick="tj()">
 							<i class="Hui-iconfont">&#xe645;</i> 发布短消息
@@ -115,9 +115,9 @@ outline: none;
 		
 			
 	
-	<!-- 切换 -->
+	<!-- 切换删除 -->
 	
-		<div class="page-container" style="display:block;" id="qhsc">	
+	<div class="page-container" style="display:block;" id="qhsc">	
 		
 		
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
@@ -126,7 +126,12 @@ outline: none;
 				<i class="Hui-iconfont">&#xe725;</i> 已阅</a>
 				<a href="javascript:;" onclick="qhsc()" >
 				<i class="Hui-iconfont">&#xe609;</i> 切换删除</a>				
-		</span>	
+		</span>
+		<span class="r">
+				<a href="javascript:;" onclick="return qbdxx()" class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe763;</i> 查看已发布短消息</a>			
+		</span>
+		
 		</div>	
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
@@ -144,18 +149,13 @@ outline: none;
 			
 			<tbody>
 				<c:forEach items="${p.list }" var="p">
+				<c:if test="${p.bgSmsDetail.receiverId==user.workerId }">
 					<tr class="text-c">
 						<td><input type="checkbox" name="one-check" value="${p.smsId }"></td>
 						<td>${p.smsTitle }</td>
 						<td><a onclick="" title="详情">${p.smsContent}</a></td>
 						<td>${p.smsSender }</td>
-						<td>
-							<c:forEach items="${user }" var="u">
-								<c:if test="${p.bgSmsDetail.receiverId==u.workerId }">
-									${u.workerName }
-								</c:if>
-							</c:forEach>
-						</td>
+						<td>${user.workerName }</td>
 						<td>
 							<c:if test="${p.bgSmsDetail.informationState=='0' }"><span style="color:red">未读</span></c:if>
 							<c:if test="${p.bgSmsDetail.informationState=='1' }"><span style="color:green">已读</span></c:if>
@@ -169,57 +169,92 @@ outline: none;
 							</c:if>
 						</td>
 					</tr>
+				</c:if>
 				</c:forEach>
 			</tbody>
 			
 		</table><br>
-			
-		<div>	
-			<span>当前${p.pageNum}/${p.pages}页，共<strong>${p.total}</strong> 条</span>
-			
-			<div style="float: right;">
-			
-			<button onclick="sy()"
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">首页</button>
-			  <script type="text/javascript">
-			  function sy(){
-			  location.href="Bgctrl/selectBgSms.do?pageNum="+${p.navigateFirstPage }}
-			  </script>
-			  
-			<button onclick="syy()" 
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">上一页</button>
-			  <script type="text/javascript">
-			  function syy(){
-			  location.href="Bgctrl/selectBgSms.do?pageNum="+${p.prePage}}
-			  </script>
-			  
-			<button disabled="disabled"
-			style=" width:26px;height:26px;background-color: rgb(90, 152, 222);border: 0px;border-radius: 5px;">${p.pageNum}</button>
-			<button onclick="xyy()"
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">下一页</button>
-				<script type="text/javascript">
-			    function xyy(){
-			    location.href="Bgctrl/selectBgSms.do?pageNum="+${p.nextPage}}
-			    </script>
-			   
-			<button onclick="wy()"
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">尾页</button>
-				 <script type="text/javascript">
-			     function wy(){
-			     location.href="Bgctrl/selectBgSms.do?pageNum="+${p.navigateLastPage }}
-			  	 </script>
-			</div>
-		</div>
+		
 		
 	</div>
 
 
 
-<!-- 切换 -->
+<!-- 切换已读 -->
 
 	<div class="page-container" style="display:none;" id="qhyd">
 		
 		<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+				<a href="javascript:;" onclick="return plsc()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe609;</i> 批量删除</a>
+				<a href="javascript:;" onclick="qhyd()" >
+				<i class="Hui-iconfont">&#xe725;</i> 切换已阅</a>
+		</span>
+		<span class="r">
+				<a href="javascript:;" onclick="return qbdxx()" class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe763;</i> 查看已发布短消息</a>			
+		</span>
+		</div>	
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" id="all-check"></th>
+					<!-- <th width="40">ID</th> -->
+					<th width="40">标题</th>
+					<th width="100">任务具体内容</th>
+					<th width="40">发布人</th>
+					<th width="40">接受者</th>
+					<th width="40">状态</th>
+					<th width="20">操作</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<c:forEach items="${p.list }" var="p">
+				<c:if test="${p.bgSmsDetail.receiverId==user.workerId }">
+					<tr class="text-c">
+						<td>
+							<c:if test="${p.bgSmsDetail.informationState=='1' }">
+							<input type="checkbox" name="one-check" value="${p.smsId }">
+							</c:if>
+							<c:if test="${p.bgSmsDetail.informationState=='0' }">
+							<a title="已查阅" onclick="return yidu(${p.smsId })"><i class="Hui-iconfont">&#xe68e;</i></a>
+							</c:if>
+						</td>
+						<td>${p.smsTitle }</td>
+						<td><a onclick="" title="详情">${p.smsContent}</a></td>
+						<td>${p.smsSender }</td>
+						<td>${user.workerName }</td>
+						<td>
+							<c:if test="${p.bgSmsDetail.informationState=='0' }"><span style="color:red">未读</span></c:if>
+							<c:if test="${p.bgSmsDetail.informationState=='1' }"><span style="color:green">已读</span></c:if>
+						</td>	
+						<td>
+							<c:if test="${p.bgSmsDetail.informationState=='1' }">
+							<a title="删除" onclick="return sc(${p.smsId })"><i class="Hui-iconfont">&#xe609;</i></a>
+							</c:if>
+							<c:if test="${p.bgSmsDetail.informationState=='0' }">
+							<a title="已查阅" onclick="return yidu(${p.smsId })"><i class="Hui-iconfont">&#xe68e;</i></a>
+							</c:if>
+						</td>
+					</tr>
+				</c:if>
+				</c:forEach>
+			</tbody>
+			
+		</table><br>
+		
+	</div>
+	
+	
+	
+<!-- 切换到已发布都所有短消息 -->
+	
+	<div class="page-container" style="display:none;" id="qbdxx">	
+		
+		
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
 				<a href="javascript:;" onclick="return plsc()" class="btn btn-danger radius">
 				<i class="Hui-iconfont">&#xe609;</i> 批量删除</a>
@@ -243,20 +278,14 @@ outline: none;
 			
 			<tbody>
 				<c:forEach items="${p.list }" var="p">
+				<c:if test="${p.smsSender==user.workerName }">
 					<tr class="text-c">
-						<td>
-							<c:if test="${p.bgSmsDetail.informationState=='1' }">
-							<input type="checkbox" name="one-check" value="${p.smsId }">
-							</c:if>
-							<c:if test="${p.bgSmsDetail.informationState=='0' }">
-							<a title="已查阅" onclick="return yidu(${p.smsId })"><i class="Hui-iconfont">&#xe68e;</i></a>
-							</c:if>
-						</td>
+						<td><input type="checkbox" name="one-check" value="${p.smsId }"></td>
 						<td>${p.smsTitle }</td>
 						<td><a onclick="" title="详情">${p.smsContent}</a></td>
 						<td>${p.smsSender }</td>
 						<td>
-							<c:forEach items="${user }" var="u">
+							<c:forEach items="${selectuser }" var="u"> 
 								<c:if test="${p.bgSmsDetail.receiverId==u.workerId }">
 									${u.workerName }
 								</c:if>
@@ -267,59 +296,20 @@ outline: none;
 							<c:if test="${p.bgSmsDetail.informationState=='1' }"><span style="color:green">已读</span></c:if>
 						</td>	
 						<td>
-							<c:if test="${p.bgSmsDetail.informationState=='1' }">
 							<a title="删除" onclick="return sc(${p.smsId })"><i class="Hui-iconfont">&#xe609;</i></a>
-							</c:if>
-							<c:if test="${p.bgSmsDetail.informationState=='0' }">
-							<a title="已查阅" onclick="return yidu(${p.smsId })"><i class="Hui-iconfont">&#xe68e;</i></a>
-							</c:if>
 						</td>
 					</tr>
+				</c:if>
 				</c:forEach>
 			</tbody>
 			
 		</table><br>
-			
-		<div>	
-			<span>当前${p.pageNum}/${p.pages}页，共<strong>${p.total}</strong> 条</span>
-			
-			<div style="float: right;">
-			
-			<button onclick="sy()"
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">首页</button>
-			  <script type="text/javascript">
-			  function sy(){
-			  location.href="Bgctrl/selectBgSms.do?pageNum="+${p.navigateFirstPage }}
-			  </script>
-			  
-			<button onclick="syy()" 
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">上一页</button>
-			  <script type="text/javascript">
-			  function syy(){
-			  location.href="Bgctrl/selectBgSms.do?pageNum="+${p.prePage}}
-			  </script>
-			  
-			<button disabled="disabled"
-			style=" width:26px;height:26px;background-color: rgb(90, 152, 222);border: 0px;border-radius: 5px;">${p.pageNum}</button>
-			<button onclick="xyy()"
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">下一页</button>
-				<script type="text/javascript">
-			    function xyy(){
-			    location.href="Bgctrl/selectBgSms.do?pageNum="+${p.nextPage}}
-			    </script>
-			   
-			<button onclick="wy()"
-			style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">尾页</button>
-				 <script type="text/javascript">
-			     function wy(){
-			     location.href="Bgctrl/selectBgSms.do?pageNum="+${p.navigateLastPage }}
-			  	 </script>
-			</div>
-		</div>
+		
 		
 	</div>
 	
-
+	
+	
 	<script type="text/javascript">
 		/* 搜索 */
 		function sousuo() {
@@ -413,7 +403,7 @@ outline: none;
 			var temp1=1;
 			
 			/* 必须全填才能提交 */
-			if (document.from.smsSender.value==''||
+			if (
 				document.from.smsTitle.value==''||
 				document.from.receiverId.value==''||
 				document.from.smsContent.value=='') {
@@ -429,7 +419,12 @@ outline: none;
 					url : "Bgctrl/addBgSms.do?"+ id, //url地址
 					data : $('#from').serialize(), //序列化表单的参数
 					dataType : "json", //响应类型
-				})
+				});
+				
+				layer.msg("添加成功", {
+					icon : 6,
+					time : 2000
+				});
 			}
 		}
 			
@@ -448,21 +443,33 @@ outline: none;
 		//样式的开启和关闭
 		function qhyd() {
 		/* alert("切换已阅") */
-			var qh = document.getElementById("qhyd").style.display;
-			if (qh == "block") {
+			var qh = document.getElementById("qhsc").style.display;
+			if (qh == "none") {
 				document.getElementById("qhyd").style.display = "none";
 				document.getElementById("qhsc").style.display = "block";
-				
+				document.getElementById("qbdxx").style.display = "none";
 			}
 		}
 		function qhsc() {
 		/* alert("切换删除") */
-			var qh = document.getElementById("qhsc").style.display;
-			if (qh == "block") {
+			var qh = document.getElementById("qhyd").style.display;
+			if (qh == "none") {
 				document.getElementById("qhsc").style.display = "none";
 				document.getElementById("qhyd").style.display = "block";
+				document.getElementById("qbdxx").style.display = "none";
 			}
 		}
+		function qbdxx() {
+		/* alert("切换全部短信息") */
+			var qh = document.getElementById("qbdxx").style.display;
+			if (qh == "none") {
+				document.getElementById("qbdxx").style.display = "block";
+				document.getElementById("qhsc").style.display = "none";
+				document.getElementById("qhyd").style.display = "none";
+			}
+		}
+		
+		
 		
 	</script>
 	<script>

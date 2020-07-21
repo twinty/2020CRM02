@@ -97,7 +97,7 @@ outline: none;
 		
 		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
 			<a href="javascript:;" onclick="return plyiyue()" class="btn btn-danger radius">
-			<i class="Hui-iconfont">&#xe6e2;</i> 请选择</a>
+			请选择已阅</a></span>
 			<%-- <a href="javascript:;" onclick="add()" class="btn btn-primary radius">
 			<i class="Hui-iconfont">&#xe600;</i> 添加新的任务</a></span>
 			
@@ -124,6 +124,7 @@ outline: none;
 			
 			<tbody>
 				<c:forEach items="${p.list }" var="p">
+					<c:if test="${p.bgTaskDetail.acceptUserId==user.workerId }">
 					<c:if test="${p.bgTaskDetail.state=='0' }">
 						<tr class="text-c">
 							<td><input type="checkbox" name="one-check" value="${p.taskId }"></td>
@@ -131,13 +132,7 @@ outline: none;
 							<td>${p.taskTitle }</td>
 							<td><a onclick="" title="详情">${p.taskSpecificContrnt}</a></td>
 							<td>${p.taskPromulgator }</td>
-							<td>
-								<c:forEach items="${user }" var="u">
-									<c:if test="${p.bgTaskDetail.acceptUserId==u.workerId }">
-										${u.workerName }
-									</c:if>
-								</c:forEach>
-							</td>
+							<td>${user.workerName }</td>
 							<td>
 								<c:forEach items="${selectBgAssessIndex }" var="sbai">
 									<c:if test="${p.assessIndex==sbai.indexId }"><!-- 对比id查出考核名称 -->
@@ -159,6 +154,7 @@ outline: none;
 								<a title="已阅" onclick="return yiyue(${p.taskId })"><i class="Hui-iconfont">&#xe660;</i></a>
 							</td>
 						</tr>
+					</c:if>
 					</c:if>
 				</c:forEach>
 			</tbody>

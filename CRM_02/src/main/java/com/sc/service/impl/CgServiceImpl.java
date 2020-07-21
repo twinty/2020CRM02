@@ -422,7 +422,10 @@ public class CgServiceImpl implements CgService {
 	@Override
 	public List<CgSupMsg> selectSupall() {
 		// TODO Auto-generated method stub
-		return cgSupMsgMapper.selectByExample(null);
+		CgSupMsgExample e = new CgSupMsgExample();
+		com.sc.entity.CgSupMsgExample.Criteria c = e.createCriteria();
+		c.andSfYxEqualTo("是");
+		return cgSupMsgMapper.selectByExample(e);
 	}
 
 	@Override

@@ -400,7 +400,7 @@
 			var indexcs="";
 			function bj(id) {
 			document.getElementById("from").action="Rsctrl/updateuserid.do"
-			alert(document.getElementById("from").action)
+			//alert(document.getElementById("from").action)
 			$("#xianshi").html('<input type="button" onclick="xg()" value="提交">')
 				$("#workerId").val($("#ee").val());
 				$.ajax({

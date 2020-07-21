@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class KcGoodsInfo implements Serializable {
     private Long productId;
 
@@ -15,7 +17,7 @@ public class KcGoodsInfo implements Serializable {
 
     private String unit;
 
-    private BigDecimal warehouseId;
+    private BigDecimal warehouseId;//ccangku
 
     private BigDecimal kcNum;
 
@@ -28,10 +30,42 @@ public class KcGoodsInfo implements Serializable {
     private String orderRemark;
 
     private Long companyId;
-
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date lastModifyDate;
     
-    //这是我创建的拓展属性，不要删除哈
+    
+  //扩展属性 用于日期范围查询
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date datemin;
+    
+    //扩展属性 用于日期范围查询
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date datemax;
+    
+    
+    
+    
+    
+    public Date getDatemin() {
+		return datemin;
+	}
+
+	public void setDatemin(Date datemin) {
+		this.datemin = datemin;
+	}
+
+	public Date getDatemax() {
+		return datemax;
+	}
+
+	public void setDatemax(Date datemax) {
+		this.datemax = datemax;
+	}
+	
+	
+
+	//这是我创建的拓展属性，不要删除哈
     private CgRepGoods cgRepGoods;
 
     private static final long serialVersionUID = 1L;
@@ -175,8 +209,11 @@ public class KcGoodsInfo implements Serializable {
 		return "KcGoodsInfo [productId=" + productId + ", productName=" + productName + ", productType=" + productType
 				+ ", ggsm=" + ggsm + ", unit=" + unit + ", warehouseId=" + warehouseId + ", kcNum=" + kcNum + ", cost="
 				+ cost + ", renall=" + renall + ", sell=" + sell + ", orderRemark=" + orderRemark + ", companyId="
-				+ companyId + ", lastModifyDate=" + lastModifyDate + ", cgRepGoods=" + cgRepGoods + "]";
+				+ companyId + ", lastModifyDate=" + lastModifyDate + ", datemin=" + datemin + ", datemax=" + datemax
+				+ ", cgRepGoods=" + cgRepGoods + "]";
 	}
+
+	
     
     
     

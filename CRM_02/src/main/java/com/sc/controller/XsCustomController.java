@@ -110,7 +110,7 @@ public class XsCustomController {
 			}
 		}
 		//这里用重定向
-		return "redirect:selectcustom.do";
+		return "redirect:selectcustom.do";//修改的页面调处来
 	}
 	
 	

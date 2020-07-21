@@ -132,7 +132,7 @@ outline: none;
 						<th width="80">ID</th>
 						<th width="100">采购主题</th>
 						<th width="100">采购日期</th>
-						<th width="60">付款情况</th>
+						
 						<th width="40">采购进展</th>
 						<th width="70">操作</th>
 					</tr>
@@ -146,8 +146,10 @@ outline: none;
 							<td> ${p.cgTitle }</td>
 							<td><fmt:formatDate value="${p.cgDate }"
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td><span class="label label-success radius">${p.fkQk}</span></td>
-							<td>${p.cgJz}</td>
+							
+							<td>
+							<span class="label label-success radius">${p.cgJz}</span>
+							</td>
 							<td class="td-manage">
 							<a style="text-decoration:none"
 								onClick="cksjxq(${p.cgId })" href="javascript:;" title="查看明细">

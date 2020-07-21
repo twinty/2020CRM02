@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -61,7 +61,7 @@
 <body>
 	<nav class="breadcrumb">
 		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
-		用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a
+		公司 <span class="c-gray en">&gt;</span> 公司管理 <a
 			class="btn btn-success radius r"
 			style="line-height:1.6em;margin-top:3px"
 			href="javascript:location.replace(location.href);" title="刷新"><i
@@ -98,16 +98,16 @@
 					class="Hui-iconfont">&#xe6e2;</i> 批量删除
 			</a> <a href="javascript:;" onclick="add()"
 				class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
-					录入供应商信息
-			</a> <a href="javascript:;" onclick="daochu()"
+					添加公司
+			</a> <!-- <a href="javascript:;" onclick="daochu()"
 				style="background-color: pink; border: 0px;"
 				class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
 					导出到excel
-			</a>
+			</a> -->
 			</span>
 			<script type="text/javascript">
 				function daochu() {
-					location.href = "<%=basePath%>purctrl/daochu.do"
+					location.href = "<%=basePath%>Rsctrl/daochu.do"
 				}
 			</script>
 			<span class="r">共有数据：<strong>${page.total}</strong> 条
@@ -119,9 +119,14 @@
 				<thead>
 					<tr class="text-c">
 						<th width="25"><input type="checkbox" id="all-check"></th>
-						<th width="80">ID</th>
-						<th width="100">供应商名称</th>
-						<th width="100">地址</th>
+						<th width="30">公司编号</th>
+						<th width="100">公司名称</th>
+						<th width="100">公司代码</th>
+						<th width="80">联系人</th>
+						<th width="100">固定电话</th>
+						<th width="100">移动电话</th>
+						<th width="100">开户银行</th>
+						<th width="100">银行账户</th>
 						<th width="40">是否有效</th>
 						<th width="40">操作</th>
 					</tr>
@@ -130,93 +135,108 @@
 					<c:forEach items="${page.list }" var="p">
 						<tr class="text-c">
 							<td><input type="checkbox" name="one-check"
-								value="${p.gysId }"></td>
-							<td>${p.gysId }</td>
-							<td>${p.gysName }</td>
-							<td>${p.address }</td>
-							<td><c:if test="${p.sfYx=='是'}">
-									<span class="label label-success radius">${p.sfYx}</span>
-								</c:if> <c:if test="${p.sfYx=='否'}">
-									<span class="label label-danger radius">${p.sfYx}</span>
+								value="${p.companyId }"></td>
+							<td>${p.companyId }</td>
+							<td>${p.companyName }</td>
+							<td>${p.companyCode }</td>
+							<td>${p.liaison }</td>
+							<td>${p.tel }</td>
+							<td>${p.mp }</td>
+							<td>${p.bankDeposit }</td>
+							<td>${p.bankAcc }</td>
+							<td><c:if test="${p.effect=='是'}">
+									<span class="label label-success radius">${p.effect}</span>
+								</c:if> <c:if test="${p.effect=='否'}">
+									<span class="label label-danger radius">${p.effect}</span>
 								</c:if></td>
 							<td class="td-manage"><a style="text-decoration:none"
-								onClick="cksjxq(${p.gysId })" href="javascript:;" title="查看采购明细">
+								onClick="cksjxq(${p.companyId })" href="javascript:;" title="查看采购明细">
 									<i class="Hui-iconfont">&#xe616;</i>
-							</a> <a title="编辑" href="javascript:;" onclick="bj(${p.gysId })"
+							</a> <a title="编辑" href="javascript:;" onclick="bj(${p.companyId })"
 								class="ml-5" style="text-decoration:none"> <i
 									class="Hui-iconfont">&#xe6df;</i>
 							</a> <a title="删除" href="javascript:;"
-								onclick="return sc(${p.gysId })" class="ml-5"
+								onclick="return sc(${p.companyId })" class="ml-5"
 								style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
-							</a></td>
+							</a>
+							<a title="查看用户" href="javascript:;" onclick="member_info('Rsctrl/gouser.do?companyId=${{p.companyId }','','350')" 
+							class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe636;</i></a>
+							
+							</td>
+							
+							
 						</tr>
 					</c:forEach>
+					
+					
 				</tbody>
 			</table>
 			<div id="window-from" class="none">
 				<form style="margin-left: 20px;" id="from" method="post">
 					<table>
+					<tr>
+					<td>公司编号</td>
+					<td><input type="text" id="companyId" name="companyId" readonly="readonly"></td>
+					</tr>
 						<tr>
-							<td>供应商名称</td>
-							<td><input class="inputcl" type="text" id="gysmc"
-								name="gysName"> <input type="hidden" id="gysid"
-								name="gysId"></td>
-							<td>供应商简称</td>
-							<td><input type="text" id="gysjc" name="gysShortName">
+							<td>公司名称</td>
+							<td><input class="inputcl" type="text" id="companyName"
+								name="companyName"> <input type="hidden" id="companyId"
+								name="companyId"></td>
+							<td>公司代码</td>
+							<td><input type="text" id="companyCode" name="companyCode">
 							</td>
 						</tr>
 						<tr>
 							<td>联系人</td>
-							<td><input type="text" id="lxr" name="lxr"></td>
+							<td><input type="text" id="liaison" name="liaison"></td>
 							<td>固定电话</td>
-							<td><input type="text" id="gddh" name="tel"></td>
+							<td><input type="text" id="tel" name="tel"></td>
 						</tr>
 						<tr>
 							<td>移动电话</td>
-							<td><input type="text" id="yddh" name="moblePhone"></td>
+							<td><input type="text" id="mp" name="mp"></td>
 							<td>传真</td>
-							<td><input type="text" id="cz" name="cz"></td>
+							<td><input type="text" id="fax" name="fax"></td>
 						</tr>
-						<tr>
-							<td>地址</td>
-							<td><input type="text" id="dz" name="address"></td>
-							<td>邮编</td>
-							<td><input type="text" id="yb" name="yb"></td>
-						</tr>
+						
 						<tr>
 							<td>邮箱</td>
-							<td><input type="text" id="yx" name="emil"></td>
+							<td><input type="email" id="emlil" name="emlil"></td>
+							<td>公司地址</td>
+							<td><input type="text" id="companyAdd" name="companyAdd"></td>
+						</tr>
+						
+						<tr>
 							<td>开户银行</td>
 							<td>
-							<select id="khyh" name="khYh" class="selectbyzy">
-							        <option value="">请选择</option>
-									<option id="gsyh" value="工商银行">工商银行</option>
-									<option id="jsyh" value="建设银行">建设银行</option>
-									<option id="zgyh" value="中国银行">中国银行</option>
-									<option id="zgnyyh" value="中国农业银行">中国农业银行</option>
-									<option id="mgdt" value="摩根大通">摩根大通</option>
-									<option id="fgyh" value="富国银行">富国银行</option>
+							<select id="select" name="bankDeposit" class="selectbyzy">
+									<option id="shi" value="中国银行">中国银行</option>
+									<option id="fou" value="建设银行">建设银行</option>
+									<option id="fou" value="农业银行">农业银行</option>
+									<option id="fou" value="工商银行">工商银行</option>
+									<option id="fou" value="交通银行">交通银行</option>
+									<option id="fou" value="中信银行">中信银行</option>
+									<option id="fou" value="华夏银行">华夏银行</option>
+									<option id="fou" value="招商银行">招商银行</option>
+									<option id="fou" value="兴业银行">兴业银行</option>
+									<option id="fou" value="广发银行">广发银行</option>
+									<option id="fou" value="浦发银行">浦发银行</option>
+									<option id="fou" value="光大银行">光大银行</option>
 							</select>
-							<!-- <input type="text" id="khyh" name="khYh"> -->
 							</td>
-						</tr>
-						<tr>
+							
 							<td>银行账户</td>
-							<td><input type="text" id="yhzh" name="yhZh"></td>
-							<td>公司主页</td>
-							<td><input type="text" id="gszy" name="companyZy"></td>
+							<td><input type="text" id="bankAcc" name="bankAcc"></td>
 						</tr>
+						
 						<tr>
 							<td>是否有效</td>
-							<td><select id="select" name="sfYx" class="selectbyzy">
+							<td><select id="select" name="effect" class="selectbyzy">
 									<option id="shi" value="是">是</option>
 									<option id="fou" value="否">否</option>
 							</select></td>
-							<td>操作人员</td>
-							<td><input readonly="readonly" type="text" id="czrname">
-								<input type="hidden" id="dd" value="${public.czrmc}"> <input
-								type="hidden" id="ee" value="${public.czrid}" name="operaterId">
-							</td>
+							
 						</tr>
 						<tr>
 							<td>公司</td>
@@ -227,8 +247,8 @@
 							<td><div>备注信息</div></td>
 							<td colspan="3">
 								<div>
-									<textarea style="float: left;" rows="5" cols="70" id="bzxx"
-										name="bzXx"></textarea>
+									<textarea style="float: left;" rows="5" cols="70" id="orderRemark"
+										name="orderRemark"></textarea>
 								</div>
 							</td>
 						</tr>
@@ -268,7 +288,7 @@
 					<script type="text/javascript">
 				  function sy(){
 				  
-				  location.href="purctrl/selectSup.do?pageNum="+${page.navigateFirstPage }+
+				  location.href="Rsctrl/selectCompany.do?pageNum="+${page.navigateFirstPage }+
 				      "&name="+document.getElementById("sousuo").value
 				  }
 				  </script>
@@ -277,7 +297,7 @@
 					<script type="text/javascript">
 				  function syy(){
 				 
-				  location.href="purctrl/selectSup.do?pageNum="+${page.prePage}+
+				  location.href="Rsctrl/selectCompany.do?pageNum="+${page.prePage}+
 				      "&name="+document.getElementById("sousuo").value
 				  }
 				  </script>
@@ -288,7 +308,7 @@
 					<script type="text/javascript">
 				     function xyy(){
 				  		 
-				      location.href="purctrl/selectSup.do?pageNum="+${page.nextPage}+
+				      location.href="Rsctrl/selectCompany.do?pageNum="+${page.nextPage}+
 				      "&name="+document.getElementById("sousuo").value
 				    }
 				   </script>
@@ -296,7 +316,7 @@
 						style="height: 26px;width: 50px;border: 0px;border-radius: 5px;">尾页</button>
 					<script type="text/javascript">
 				     function wy(){
-				     location.href="purctrl/selectSup.do?pageNum="+${page.navigateLastPage }+
+				     location.href="Rsctrl/selectCompany.do?pageNum="+${page.navigateLastPage }+
 				      "&name="+document.getElementById("sousuo").value
 				    }
 				  </script>
@@ -309,7 +329,7 @@
 		/* 搜索 */
 		function sousuo() {
 			var sousuo = document.getElementById("sousuo").value;
-			location.href = "purctrl/selectSup.do?name=" + sousuo
+			location.href = "Rsctrl/selectCompany.do?name=" + sousuo
 		}
 		/* 批量删除 */
 		var nodeAll = document.getElementById("all-check");
@@ -337,7 +357,7 @@
 			}
 			if (temp == 1) {
 				if (confirm("确认删除吗") == true) {
-					location.href = "<%=basePath%>purctrl/deletsup.do?" + id;
+					location.href = "<%=basePath%>Rsctrl/deletsup1.do?" + id;
 					return true;
 				} else {
 					return false;
@@ -347,7 +367,7 @@
 		/* 单个删除 */
 		function sc(uid) {
 			if (confirm("确认删除吗") == true) {
-				location.href = "<%=basePath%>purctrl/deletsup.do?id=" + uid;
+				location.href = "<%=basePath%>Rsctrl/deletsup1.do?id=" + uid;
 				return true;
 			}
 		}
@@ -355,24 +375,24 @@
 		function cksjxq(id) {
 			$.ajax({
 				type : "post",
-				url : "<%=basePath%>purctrl/selectSupbyid.do?id=" + id,
+				url : "<%=basePath%>Rsctrl/selectCompanyid.do?id=" + id,
 				dataType : "json",
 				success : function(data) //从前台回调回来的数组，处理后的数据
-				{
-					$("#a").html("供应商简称：" + data.gysShortName);
-					$("#b").html("联系人：" + data.lxr);
-					$("#c").html("固定电话：" + data.tel);
-					$("#d").html("传真：" + data.cz);
-					$("#e").html("移动电话：" + data.moblePhone);
-					$("#f").html("邮编：" + data.yb);
-					$("#g").html("邮箱：" + data.emil);
-					$("#h").html("开户银行：" + data.khYh);
-					$("#i").html("银行账户：" + data.yhZh);
-					$("#j").html("公司主页：" + data.companyZy);
-					$("#k").html("操作人员：" + data.xtUserInfo.workerName);
-					$("#nn").html("备注信息：" + data.bzXx);
+				{   
+				    $("#a").html("公司编号：" + data.companyId);
+					$("#a").html("公司名称：" + data.companyName);
+					$("#b").html("公司代码：" + data.companyCode);
+					$("#c").html("联系人：" + data.liaison);
+					$("#d").html("固定电话：" + data.tel);
+					$("#e").html("移动电话：" + data.mp);
+					$("#f").html("传真：" + data.fax);
+					$("#g").html("邮箱：" + data.emlil);
+					$("#h").html("开户银行：" + data.bankDeposit);
+					$("#i").html("银行账户：" + data.bankAcc);
+					$("#j").html("公司地址：" + data.companyAdd);
+					$("#nn").html("备注信息：" + data.orderRemark);
 					$("#mm").html("公司：" + data.compname);
-					var date = new Date(data.lastTime);
+					var date = new Date(data.lastModifyDate);
 					var Y = date.getFullYear() + '-';
 					var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
 					var D = date.getDate() + ' ';
@@ -388,61 +408,40 @@
 				fix : false, //不固定
 				maxmin : true,
 				shade : 0.4,
-				title : '供应商明细',
+				title : '公司明细',
 				content : $('#window-div')
 			});
 		}
 		/* 编辑 */
 		function bj(id) {
 			var temp = 0;
-			$("#czrid").val($("#ee").val());
+			$("#companyId").val($("#ee").val());
 			$.ajax({
 				type : "post",
-				url : "<%=basePath%>purctrl/selectSupbyid.do?id=" + id,
+				url : "<%=basePath%>Rsctrl/selectCompanyid.do?id=" + id,
 				dataType : "json",
 				success : function(data) //从前台回调回来的数组，处理后的数据
 				{
-					$("#gysid").val(data.gysId);
-					$("#gysmc").val(data.gysName);
-					$("#gysjc").val(data.gysShortName);
-					$("#lxr").val(data.lxr);
-					$("#gddh").val(data.tel);
-					$("#yddh").val(data.moblePhone);
-					$("#cz").val(data.cz);
-					$("#dz").val(data.address);
-					$("#yb").val(data.yb);
-					$("#yx").val(data.emil);
-					$("#khyh").val(data.khYh);
-					if (data.khYh == "工商银行") {
-						document.getElementById("gsyh").selected = true;
-					}
-					if (data.khYh == "建设银行") {
-						document.getElementById("jsyh").selected = true;
-					}
-					if (data.khYh == "中国银行") {
-						document.getElementById("zgyh").selected = true;
-					}
-					if (data.khYh == "中国农业银行") {
-						document.getElementById("zgnyyh").selected = true;
-					}
-					if (data.khYh == "摩根大通") {
-						document.getElementById("mgdt").selected = true;
-					}
-					if (data.khYh == "富国银行") {
-						document.getElementById("fgyh").selected = true;
-					}
-					
-					$("#yhzh").val(data.yhZh);
-					$("#gszy").val(data.companyZy);
-					$("#czrname").val(data.xtUserInfo.workerName);
-					if (data.sfYx == "是") {
+					$("#companyId").val(data.companyId);
+					$("#companyName").val(data.companyName);
+					$("#companyCode").val(data.companyCode);
+					$("#liaison").val(data.liaison);
+					$("#tel").val(data.tel);
+					$("#mp").val(data.mp);
+					$("#fax").val(data.fax);
+					$("#emlil").val(data.emlil);
+					$("#bankDeposit").val(data.bankDeposit);
+					$("#bankAcc").val(data.bankAcc);
+					$("#companyAdd").val(data.companyAdd);
+					$("#orderRemark").val(data.orderRemark);
+					if (data.effect == "是") {
 						document.getElementById("shi").selected = true;
 					}
-					if (data.sfYx == "否") {
+					if (data.effect == "否") {
 						document.getElementById("fou").selected = true;
 					}
-					$("#czry").val(data.operaterId);
-					$("#bzxx").html(data.bzXx);
+				
+					$("#orderRemark").html(data.orderRemark);
 					var op = "";
 					op = "<option>请选择</option>";
 					$.each(data.xtCompanyInfo, function(i, comp) {
@@ -467,7 +466,7 @@
 					/* alert($('#from').serialize()); */
 					$.ajax({
 						type : "post", //请求方式
-						url : "purctrl/updatetSup.do", //url地址
+						url : "Rsctrl/updateCompany.do", //url地址
 						data : $('#from').serialize(), //序列化表单的参数
 						dataType : "json" //响应类型
 					});
@@ -486,7 +485,6 @@
 					setTimeout(function() {
 						location.replace(location.href);
 					}, 1000)
-					
 				}
 			});
 		//弹层全屏
@@ -496,11 +494,11 @@
 		/* 添加 */
 		function add() {
 			var temp = 0;
-			$("#czrname").val($("#dd").val());
-			$("#czrid").val($("#ee").val());
+			$("#companyName").val($("#dd").val());
+			$("#companyId").val($("#ee").val());
 			$.ajax({
 				type : "post",
-				url : "<%=basePath%>purctrl/selectallcompany.do",
+				url : "<%=basePath%>Rsctrl/selectCompany.do",
 				dataType : "json",
 				success : function(data) //从前台回调回来的数组，处理后的数据
 				{
@@ -527,7 +525,7 @@
 					/* alert($('#from').serialize()); */
 					$.ajax({
 						type : "post", //请求方式
-						url : "purctrl/addSup.do", //url地址
+						url : "Rsctrl/addCompany.do", //url地址
 						data : $('#from').serialize(), //序列化表单的参数
 						dataType : "json" //响应类型
 	
@@ -543,17 +541,20 @@
 				},
 				//end是关闭窗口时自动执行
 				end : function() {
-					if (temp == 1) {
+					/* alert("关闭后刷新页面"); */
 					setTimeout(function() {
 						location.replace(location.href);
 					}, 1000)
-					}
 	
 				}
 			});
 		//弹层全屏
 		//layer.full(index);
 		}
+		
+		function member_info(url){
+   window.location.href=url;
+}
 	</script>
 </body>
 </html>
